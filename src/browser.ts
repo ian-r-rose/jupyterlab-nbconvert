@@ -2,46 +2,49 @@ import * as json from '@jupyterlab/json-extension';
 import * as vega from '@jupyterlab/vega4-extension';
 import * as vdom from '@jupyterlab/vdom-extension';
 
-import {nbformat} from '@jupyterlab/coreutils';
+import { nbformat } from '@jupyterlab/coreutils';
 
-import {RenderMimeRegistry} from '@jupyterlab/rendermime';
+import { RenderMimeRegistry } from '@jupyterlab/rendermime';
 
-import {IRenderMime} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import {ReadonlyJSONObject} from '@phosphor/coreutils';
+import { ReadonlyJSONObject } from '@phosphor/coreutils';
 
-import {Widget} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
 const resolver: IRenderMime.IResolver = {
   resolveUrl: url => Promise.resolve(url),
-  getDownloadUrl: url => Promise.resolve(url),
+  getDownloadUrl: url => Promise.resolve(url)
 };
 
-const registry = new RenderMimeRegistry({resolver});
+const registry = new RenderMimeRegistry({ resolver });
 registry.addFactory(json.rendererFactory);
 registry.addFactory(vega.rendererFactory);
 registry.addFactory(vdom.rendererFactory);
 
-const vegaMetadata = {embed_options: {renderer: 'svg'}};
+const vegaMetadata = { embed_options: { renderer: 'svg' } };
 const VEGA_MIME = 'application/vnd.vega.v4+json';
 const VEGALITE_MIME = 'application/vnd.vegalite.v2+json';
 
-const metadata: {[x: string]: ReadonlyJSONObject} = {
-  'application/json': {expanded: true},
-  [VEGA_MIME]: {[VEGA_MIME]: vegaMetadata},
-  [VEGALITE_MIME]: {[VEGALITE_MIME]: vegaMetadata},
+const metadata: { [x: string]: ReadonlyJSONObject } = {
+  'application/json': { expanded: true },
+  [VEGA_MIME]: { [VEGA_MIME]: vegaMetadata },
+  [VEGALITE_MIME]: { [VEGALITE_MIME]: vegaMetadata }
 };
 
 async function convertMimeBundle(
-  data: ReadonlyJSONObject,
+  data: ReadonlyJSONObject
 ): Promise<ReadonlyJSONObject> {
   for (let mimeType of Object.keys(data)) {
     if (registry.getFactory(mimeType)) {
       const renderer = registry.createRenderer(mimeType);
       Widget.attach(renderer, document.body);
-      const model = registry.createModel({data, metadata: metadata[mimeType]});
+      const model = registry.createModel({
+        data,
+        metadata: metadata[mimeType]
+      });
       await renderer.renderModel(model);
-      let newData = {'text/html': renderer.node.innerHTML};
+      let newData = { 'text/html': renderer.node.innerHTML };
       Widget.detach(renderer);
       return newData;
     }
@@ -50,7 +53,7 @@ async function convertMimeBundle(
 }
 
 async function convertNotebook(
-  notebook: nbformat.INotebookContent,
+  notebook: nbformat.INotebookContent
 ): Promise<nbformat.INotebookContent> {
   for (let cell of notebook.cells) {
     if (cell.cell_type === 'code') {
