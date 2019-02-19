@@ -10,10 +10,14 @@
   "author": "Ian Rose",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@jupyterlab/coreutils": "^2.2.1",
     "@jupyterlab/json-extension": "^0.18.1",
     "@jupyterlab/rendermime": "^0.19.1",
+    "@jupyterlab/rendermime-interfaces": "^1.2.1",
     "@jupyterlab/vdom-extension": "^0.18.1",
     "@jupyterlab/vega4-extension": "^0.18.1",
+    "@phosphor/coreutils": "^1.3.0",
+    "@phosphor/widgets": "^1.6.0",
     "jsdom": "^13.2.0",
     "jsdom-global": "^3.0.2",
     "puppeteer": "^1.12.2"
