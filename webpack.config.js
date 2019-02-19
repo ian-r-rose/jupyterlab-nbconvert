@@ -2,7 +2,7 @@ module.exports = {
   "mode": "development",
   "entry": "./src/browser.ts",
   "output": {
-    "path": __dirname+'/static/js',
+    "path": __dirname+'/static',
     "filename": "main.bundle.js"
   },
   "module": {

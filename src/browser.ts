@@ -4,11 +4,18 @@ import * as vdom from '@jupyterlab/vdom-extension';
 
 import { RenderMimeRegistry } from '@jupyterlab/rendermime';
 
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
+
 import { ReadonlyJSONObject } from '@phosphor/coreutils';
 
 import { Widget } from '@phosphor/widgets';
 
-const registry = new RenderMimeRegistry();
+const resolver: IRenderMime.IResolver = {
+  resolveUrl: url => Promise.resolve(url),
+  getDownloadUrl: url => Promise.resolve(url),
+};
+
+const registry = new RenderMimeRegistry({ resolver });
 registry.addFactory(json.rendererFactory);
 registry.addFactory(vega.rendererFactory);
 registry.addFactory(vdom.rendererFactory);
@@ -26,7 +33,7 @@ async function convert(data: ReadonlyJSONObject): Promise<ReadonlyJSONObject> {
       const model = registry.createModel({ data, metadata: metadata[mimeType] });
       await renderer.renderModel(model);
       let newData = { 'text/html': renderer.node.innerHTML };
-      Widget.detach(renderer);
+      // Widget.detach(renderer);
       return newData;
     }
   }
