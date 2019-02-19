@@ -21,7 +21,12 @@ registry.addFactory(vega.rendererFactory);
 registry.addFactory(vdom.rendererFactory);
 
 const metadata: { [x: string]: ReadonlyJSONObject } = {
-  'application/json': { expanded: true }
+  'application/json': { expanded: true },
+  'application/vnd.vega.v4+json': {
+    'application/vnd.vega.v4+json': {
+      embed_options: { renderer: 'svg' }
+    }
+  }
 };
 
 
@@ -33,7 +38,7 @@ async function convert(data: ReadonlyJSONObject): Promise<ReadonlyJSONObject> {
       const model = registry.createModel({ data, metadata: metadata[mimeType] });
       await renderer.renderModel(model);
       let newData = { 'text/html': renderer.node.innerHTML };
-      // Widget.detach(renderer);
+      Widget.detach(renderer);
       return newData;
     }
   }
