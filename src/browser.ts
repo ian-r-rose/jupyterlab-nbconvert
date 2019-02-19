@@ -20,13 +20,14 @@ registry.addFactory(json.rendererFactory);
 registry.addFactory(vega.rendererFactory);
 registry.addFactory(vdom.rendererFactory);
 
+const vegaMetadata = { embed_options: { renderer: 'svg' } };
+const VEGA_MIME = 'application/vnd.vega.v4+json';
+const VEGALITE_MIME = 'application/vnd.vegalite.v2+json';
+
 const metadata: { [x: string]: ReadonlyJSONObject } = {
   'application/json': { expanded: true },
-  'application/vnd.vega.v4+json': {
-    'application/vnd.vega.v4+json': {
-      embed_options: { renderer: 'svg' }
-    }
-  }
+  [VEGA_MIME]: { [VEGA_MIME]: vegaMetadata },
+  [VEGALITE_MIME]: { [VEGALITE_MIME]: vegaMetadata }
 };
 
 
