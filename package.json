@@ -1,0 +1,22 @@
+{
+  "name": "jupyterlab-nbconvert",
+  "version": "0.1.0",
+  "description": "An nbconvert preprocessor for using JupyterLab renderers",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Ian Rose",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@jupyterlab/json-extension": "^0.18.1",
+    "@jupyterlab/vdom-extension": "^0.18.1",
+    "@jupyterlab/vega4-extension": "^0.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
