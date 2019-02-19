@@ -3,20 +3,32 @@
   "version": "0.1.0",
   "description": "An nbconvert preprocessor for using JupyterLab renderers",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack",
+    "clean": "rimraf static/js"
+  },
   "author": "Ian Rose",
   "license": "BSD-3-Clause",
   "dependencies": {
     "@jupyterlab/json-extension": "^0.18.1",
+    "@jupyterlab/rendermime": "^0.19.1",
     "@jupyterlab/vdom-extension": "^0.18.1",
-    "@jupyterlab/vega4-extension": "^0.18.1"
+    "@jupyterlab/vega4-extension": "^0.18.1",
+    "jsdom": "^13.2.0",
+    "jsdom-global": "^3.0.2",
+    "puppeteer": "^1.12.2"
   },
   "devDependencies": {
-    "eslint": "^5.14.1",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "css-loader": "^2.1.0",
+    "rimraf": "~2.6.2",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.3",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   }
 }
